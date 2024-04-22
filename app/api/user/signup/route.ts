@@ -13,7 +13,7 @@ connectDatabase();
 export const POST = async (request: NextRequest) => {
   logger.log(`Post Request : ${request.method} ${request.url}`, request.body);
   try {
-    const { name, email, role, password } = await request.json();
+    const { name, email, role, password, contact } = await request.json();
 
     const user = await UserModel.findOne({ email });
 
@@ -28,6 +28,7 @@ export const POST = async (request: NextRequest) => {
       name,
       email,
       password: hashPassword,
+      contact,
       role,
     })
       .save()

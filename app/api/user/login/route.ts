@@ -11,7 +11,7 @@ const logger = new Logger("User controller");
 //Connect to database
 connectDatabase();
 
-export const POST = async (request: NextRequest) => {
+export const POST = async (request: NextRequest): Promise<NextResponse> => {
   logger.log(`Post Request : ${request.method} ${request.url}`, request.body);
   try {
     const { email, password } = await request.json();
@@ -41,7 +41,7 @@ export const POST = async (request: NextRequest) => {
       httpOnly: true,
     });
 
-    return;
+    return response;
   } catch (err: any) {
     return errorHandler(err, HTTPStatus.SERVER);
   }
