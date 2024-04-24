@@ -12,15 +12,14 @@ const logger = new Logger("User controller");
 connectDatabase();
 
 export const POST = async (request: NextRequest): Promise<NextResponse> => {
-  logger.log(`Post Request : ${request.method} ${request.url}`, request.body);
   try {
     const { email, password } = await request.json();
 
-    const user = await UserModel.findOne({ email }).select("-password");
+    const user = await UserModel.findOne({ email });
 
     if (!user) return errorHandler("Invalid User Email!", HTTPStatus.BAD);
 
-    const passwordVerify = bcrypt.compare(password, user.password);
+    const passwordVerify = await bcrypt.compare(password, user.password);
 
     if (!passwordVerify)
       return errorHandler("Invalid Password!", HTTPStatus.BAD);

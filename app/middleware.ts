@@ -2,7 +2,10 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import Logger from "./config/Logger";
 import { UserRole } from "./util/enum";
+
+const logger = new Logger("Middleware");
 
 // 1. Describing routes
 const publicRoutes = ["/login", "/signup"];
@@ -10,6 +13,12 @@ const privateRoutes = ["/profile"];
 const adminRoutes = ["/admin"];
 
 export default async function middleware(req: NextRequest) {
+  logger.log(
+    `Middleware invoked ::  ${req.method} ${req.nextUrl.pathname}`,
+    req.headers,
+    req.body
+  );
+
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname;
   const isProtectedRoute = privateRoutes.includes(path);
@@ -40,5 +49,5 @@ export default async function middleware(req: NextRequest) {
 
 // Routes Middleware should not run on
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!_next/static|_next/image|.*\\.png$).*)"],
 };

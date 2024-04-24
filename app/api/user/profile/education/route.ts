@@ -9,7 +9,6 @@ connectDatabase();
 const logger = new Logger("Education Route");
 
 export const POST = async (request: NextRequest) => {
-  logger.log(`${request.method} ${request.url}`, request.body);
   try {
     const uid = request.headers.get("uid");
 
@@ -49,7 +48,6 @@ export const POST = async (request: NextRequest) => {
 };
 
 export const GET = async (request: NextRequest) => {
-  logger.log(`${request.method} ${request.url}`, request.body);
   try {
     const uid = request.headers.get("uid");
 
@@ -65,7 +63,6 @@ export const GET = async (request: NextRequest) => {
 };
 
 export const PUT = async (request: NextRequest) => {
-  logger.log(`${request.method} ${request.url}`, request.body);
   try {
     const { highestEducation, name, gpa, degree, field, completionDate, id } =
       await request.json();
@@ -98,7 +95,6 @@ export const PUT = async (request: NextRequest) => {
 };
 
 export const DELETE = async (request: NextRequest) => {
-  logger.log(`${request.method} ${request.url}`, request.body);
   try {
     const { id } = await request.json();
 

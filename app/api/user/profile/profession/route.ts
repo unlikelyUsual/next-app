@@ -12,9 +12,8 @@ connectDatabase();
 const logger = new Logger("Profession Route");
 
 export const POST = async (request: NextRequest) => {
-  logger.log(`Post Request : ${request.method} ${request.url}`, request.body);
   try {
-    const uid = request.headers.get("uid");
+    const uid = request.headers.get("x-uid");
 
     const { professions } = await request.json();
 
@@ -47,7 +46,6 @@ export const POST = async (request: NextRequest) => {
 };
 
 export const GET = async (request: NextRequest) => {
-  logger.log(`GET Request : ${request.method} ${request.url}`, request.body);
   try {
     const uid = request.headers.get("uid");
 
@@ -65,7 +63,6 @@ export const GET = async (request: NextRequest) => {
 };
 
 export const PUT = async (request: NextRequest) => {
-  logger.log(`Post Request : ${request.method} ${request.url}`, request.body);
   try {
     const {
       id,
@@ -107,7 +104,6 @@ export const PUT = async (request: NextRequest) => {
 };
 
 export const DELETE = async (request: NextRequest) => {
-  logger.log(`${request.method} ${request.url}`, request.body);
   try {
     const { id, index } = await request.json();
 
